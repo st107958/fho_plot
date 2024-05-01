@@ -90,6 +90,26 @@ values_to_comp_array_3 = np.array(values_to_comp_3)
 x_values_pt_T_3 = values_to_comp_array_3[:, 0]
 y_values_pt_Owen = values_to_comp_array_3[:, 1]
 
+values_fho =[]
+
+with open('kvt_FHO.txt', 'r') as file:
+    for _ in range(lines_to_skip):
+        next(file)
+
+    for line in file:
+        data = line.strip().split()
+        values_fho.append([float(i) for i in data])
+values_array_fho = np.array(values_fho)
+
+temperature_kvt_fho = values_array_fho[:, 2]
+values_kvt_fho = values_array_fho[:, 3]
+
+pt_T_array_fho = np.array(rel_times(temperature_kvt_fho, values_kvt_fho))
+
+print(pt_T_array_fho)
+
+x_values_pt_fho = pt_T_array_fho[:, 0]
+y_values_pt_fho = pt_T_array_fho[:, 1]
 
 
 
@@ -105,6 +125,7 @@ fig.suptitle('Relaxation times 02-02')
 # ax1.set_yscale('log')
 # ax1.grid(True)
 
+ax2.plot(x_values_pt_fho**(-1/3), y_values_pt_fho, label='FHO!')
 ax2.plot(x_values_pt_FHO_FR**(-1/3), y_values_pt_FHO_FR, label='FHO-FR')
 ax2.plot(x_values_pt_T_1, y_values_pt_FHO, label="FHO")
 ax2.plot(x_values_pt_T_1, y_values_pt_M_W, label="M-W")
