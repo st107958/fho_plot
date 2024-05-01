@@ -48,7 +48,7 @@ y_values_pt_FHO_FR = pt_T_array[:, 1]
 
 values_to_comp_1 = []
 
-with open('02-02.tsv', 'r') as file:
+with open('relaxation_times_O2-O2.tsv', 'r') as file:
     for _ in range(lines_to_skip):
         next(file)
 
@@ -60,8 +60,8 @@ values_to_comp_array_1 = np.array(values_to_comp_1)
 # print(values_to_comp_array_1)
 
 x_values_pt_T_1 = values_to_comp_array_1[:, 0]
-y_values_pt_FHO = values_to_comp_array_1[:, 1]
-y_values_pt_M_W = values_to_comp_array_1[:, 2]
+y_values_pt_FHO = values_to_comp_array_1[:, 2]
+y_values_pt_M_W = values_to_comp_array_1[:, 1]
 
 values_to_comp_2 = []
 
@@ -126,12 +126,13 @@ fig.suptitle('Relaxation times 02-02')
 # ax1.set_yscale('log')
 # ax1.grid(True)
 
-ax2.plot(x_values_pt_fho**(-1/3), y_values_pt_fho * pa_to_atm, label='FHO!')   # ptau в атмосферах
+# ax2.plot(x_values_pt_fho**(-1/3), y_values_pt_fho * pa_to_atm, label='FHO!')   # ptau в атмосферах
 ax2.plot(x_values_pt_FHO_FR**(-1/3), y_values_pt_FHO_FR * pa_to_atm, label='FHO-FR')   # ptau в атмосферах
 ax2.plot(x_values_pt_T_1, y_values_pt_FHO, label="FHO")
 ax2.plot(x_values_pt_T_1, y_values_pt_M_W, label="M-W")
-# ax2.plot(x_values_pt_T_2, y_values_pt_Ibr, 'o', color='black', label="Ibraguimova")
-# ax2.plot(x_values_pt_T_3, y_values_pt_Owen, 'd', color='indigo', label="Owen")
+
+ax2.scatter(x_values_pt_T_3, y_values_pt_Owen, s=20, marker='^', color='indigo', label="Owen")
+ax2.scatter(x_values_pt_T_2, y_values_pt_Ibr, s=20,marker='d', color='black', label="Ibraguimova")
 
 ax2.set_yscale('log')
 ax2.grid(True)
