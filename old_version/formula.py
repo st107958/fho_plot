@@ -9,17 +9,17 @@ we_02 = 158019
 pa_to_atm = 9.86923e-6
 
 def rel_times(temperature: np.array, coefficient: np.array):
-    pt_array = []
+    t_array = []
 
     for i in range(len(coefficient)):
         T = temperature[i]
         kvt = coefficient[i]
 
-        pt = (k * T) / (kvt * (1 - math.exp(-(we_02 * c * h) / (k * T))))
+        t = (k * T) / (kvt * (1 - math.exp(-(we_02 * c * h) / (k * T)))) * pa_to_atm
 
-        pt_array.append([float(T), float(pt)])
+        t_array.append([float(T), float(t)])
 
-    return pt_array
+    return t_array
 
 values = []
 lines_to_skip = 1
@@ -32,6 +32,8 @@ with open('kvt_FHO-FR_O2-O2.txt', 'r') as file:
         data = line.strip().split()
         values.append([float(i) for i in data])
 values_array = np.array(values)
+
+
 
 temperature_kvt = values_array[:, 2]
 values_kvt = values_array[:, 3]
@@ -127,12 +129,12 @@ fig.suptitle('Relaxation times 02-02')
 # ax1.grid(True)
 
 # ax2.plot(x_values_pt_fho**(-1/3), y_values_pt_fho * pa_to_atm, label='FHO!')   # ptau в атмосферах
-ax2.plot(x_values_pt_FHO_FR**(-1/3), y_values_pt_FHO_FR * pa_to_atm, label='FHO-FR')   # ptau в атмосферах
+ax2.plot(x_values_pt_FHO_FR**(-1/3), y_values_pt_FHO_FR, label='FHO-FR')   # ptau в атмосферах
 ax2.plot(x_values_pt_T_1, y_values_pt_FHO, label="FHO")
 ax2.plot(x_values_pt_T_1, y_values_pt_M_W, label="M-W")
 
 ax2.scatter(x_values_pt_T_3, y_values_pt_Owen, s=20, marker='^', color='indigo', label="Owen")
-ax2.scatter(x_values_pt_T_2, y_values_pt_Ibr, s=20,marker='d', color='black', label="Ibraguimova")
+ax2.scatter(x_values_pt_T_2, y_values_pt_Ibr, s=20, marker='d', color='black', label="Ibraguimova")
 
 ax2.set_yscale('log')
 ax2.grid(True)
