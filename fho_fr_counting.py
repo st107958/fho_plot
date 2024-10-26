@@ -14,8 +14,8 @@ spectr_constants = {
 }
 pa_to_atm = 9.86923e-6
 
-molecule = 'O2-O' # тут менять
-particle = 'O2' # тут
+molecule = 'NO-O' # тут менять
+particle = 'NO' # тут
 
 lines_to_skip = 1
 def rel_times(temperature: np.array, coefficient: np.array, molecule: str):
