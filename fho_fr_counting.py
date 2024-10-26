@@ -13,12 +13,11 @@ spectr_constants = {
     'NO': 190420
 }
 pa_to_atm = 9.86923e-6
-molecules = ["N2-N2", "O2-O2", "N2-O2", "O2-N2"]
 
-molecule = molecules[0] # тут менять
-particle = 'N2'
+molecule = 'O2-O' # тут менять
+particle = 'O2' # тут
 
-lines_to_skip=1
+lines_to_skip = 1
 def rel_times(temperature: np.array, coefficient: np.array, molecule: str):
     t_array = []
     for i in range(len(coefficient)):
@@ -31,10 +30,10 @@ def rel_times(temperature: np.array, coefficient: np.array, molecule: str):
 
     return t_array
 
-path = 'N2-N2.txt'
+path = molecule + '.txt'
 fullpath = os.path.join('FHO_coef', path)
 
-values_fho =[]
+values_fho = []
 with open(fullpath, 'r') as file:
     for _ in range(lines_to_skip):
         next(file)
@@ -50,7 +49,7 @@ pt_T_array_fho = np.array(rel_times(temperature_kvt_fho, values_kvt_fho, molecul
 
 
 
-filename = 'FHO_FR.csv'
-fullfilename = os.path.join(molecule, filename)
+filename = 'FHO_FR.csv' #тут
+fullfilename = os.path.join(molecule, filename) #тут
 np.savetxt(fullfilename, pt_T_array_fho)
 
